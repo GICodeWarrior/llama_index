@@ -70,7 +70,6 @@ from llama_index.core.base.llms.types import (
 )
 
 dispatcher = instrument.get_dispatcher(__name__)
-_O = TypeVar("_O", bound=BaseModel)
 
 if TYPE_CHECKING:
     from llama_index.core.chat_engine.types import AgentChatResponse
@@ -323,11 +322,11 @@ class LLM(BaseLLM):
     @dispatcher.span
     def structured_predict(
         self,
-        output_cls: Type[_O],
+        output_cls: Type[Model],
         prompt: PromptTemplate,
         llm_kwargs: Optional[Dict[str, Any]] = None,
         **prompt_args: Any,
-    ) -> _O:
+    ) -> Model:
         r"""Structured predict.
 
         Args:
@@ -379,11 +378,11 @@ class LLM(BaseLLM):
     @dispatcher.span
     async def astructured_predict(
         self,
-        output_cls: Type[_O],
+        output_cls: Type[Model],
         prompt: PromptTemplate,
         llm_kwargs: Optional[Dict[str, Any]] = None,
         **prompt_args: Any,
-    ) -> _O:
+    ) -> Model:
         r"""Async Structured predict.
 
         Args:
@@ -436,7 +435,7 @@ class LLM(BaseLLM):
     @dispatcher.span
     def stream_structured_predict(
         self,
-        output_cls: Type[BaseModel],
+        output_cls: Type[Model],
         prompt: PromptTemplate,
         llm_kwargs: Optional[Dict[str, Any]] = None,
         **prompt_args: Any,
@@ -497,7 +496,7 @@ class LLM(BaseLLM):
     @dispatcher.span
     async def astream_structured_predict(
         self,
-        output_cls: Type[BaseModel],
+        output_cls: Type[Model],
         prompt: PromptTemplate,
         llm_kwargs: Optional[Dict[str, Any]] = None,
         **prompt_args: Any,
